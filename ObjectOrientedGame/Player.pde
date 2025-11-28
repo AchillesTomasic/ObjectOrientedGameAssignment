@@ -1,22 +1,24 @@
 class Player{
   // input vairble //
-  boolean[] inputs = new boolean[4];// array for different variables | 0 = Right, 1 = Left, 2 = Up, 3 = Down |
+  boolean[] inputs = new boolean[4];// array for different variables | 0 = Right, 1 = Left, 2 = Up, 3 = Down, 4 = Z/"Shoot key",  |
   
   // player movement variables //
     PVector position = new PVector(); // initalizes the position vectors for the player
     PVector velocity = new PVector(); // initalizes the velocity vectors for the player
     PVector acceleration = new PVector(); // initalizes the accleration vectors for the player
-    float moveSpeed = 5;// initalizes speed of the player
+    float moveSpeed = 7;// initalizes speed of the player
    // //
 
   /// player constructor
-  void Player(){
-    
+  Player(float posX,float posY){
+    position.x = posX; // sets the x pos for the player 
+    position.y = posY; // sets the y pos for the player
   }
   // displays the player visuals
   void playerDisplay()
   {
-    rect(position.x,position.y,30,30);
+    stroke(0,255,0); // debug colour
+    rect(position.x,position.y,180,180);
     
   }
   // moves the player across the screen
@@ -37,6 +39,10 @@ class Player{
      // input when down arrow is clicked //
      if(inputs[3] == true) {
        position.y += moveSpeed; // moves player down
+     }
+     // input when z is pressed //
+     if(inputs[4] == true) {
+       
      }
   }
   

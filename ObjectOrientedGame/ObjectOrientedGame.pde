@@ -1,9 +1,10 @@
 // Object Varibles //
-Player player = new Player(); // initalizes the player
+Player player; // initalizes the player
+ArrayList<Bullet> playerBullet = new ArrayList<Bullet>();
 
 void setup(){
-  size(1700,1000); // sets the screen size
-
+  size(1600,1000); // sets the screen size
+ player = new Player(width/10, height /2.5);
 }
 
 void draw(){
@@ -20,30 +21,34 @@ void playerFunctionCall()
 
 // calls input when pressed or over time when held down //
 void keyPressed(){
-  // chekcs first if the key is coded //
+  // chekcs first if the key is pressed //
   if(key == CODED){
-    // input when right arrow is clicked //
+    // input when right arrow is pressed //
     if(keyCode == RIGHT)
     {
        player.inputs[0] = true; // Sets right to true
     }
-    // input when left arrow is clicked //
+    // input when left arrow is pressed //
     if(keyCode == LEFT)
     {
-       player.inputs[1] = true; // Sets left to false
+       player.inputs[1] = true; // Sets left to true
     }
-    // input when up arrow is clicked //
+    // input when up arrow is pressed //
     if(keyCode == UP)
     {
-       player.inputs[2] = true; // Sets up to false
+       player.inputs[2] = true; // Sets up to true
     }
-    // input when down arrow is clicked //
+    // input when down arrow is pressed //
     if(keyCode == DOWN)
     {
-       player.inputs[3] = true; // Sets down to false
+       player.inputs[3] = true; // Sets down to true
     }
-
   }
+  // input when z is pressed //
+    if(key == 'z')
+    {
+       player.inputs[4] = true; // Sets z to true
+    }
 }
 
 // when input is relseaed //
@@ -72,4 +77,9 @@ void keyReleased(){
        player.inputs[3] = false; // Sets down to false
     }
    }
+    // input when z is pressed //
+    if(key == 'z')
+    {
+       player.inputs[4] = false; // Sets z to false
+    }
 }
