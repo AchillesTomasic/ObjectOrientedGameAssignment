@@ -1,6 +1,6 @@
 class Player{
   // input vairble //
-  boolean[] inputs = new boolean[4];// array for different variables | 0 = Right, 1 = Left, 2 = Up, 3 = Down, 4 = Z/"Shoot key",  |
+  boolean[] inputs = new boolean[5];// array for different variables | 0 = Right, 1 = Left, 2 = Up, 3 = Down, 4 = Z/"Shoot key",  |
   
   // player movement variables //
     PVector position = new PVector(); // initalizes the position vectors for the player
