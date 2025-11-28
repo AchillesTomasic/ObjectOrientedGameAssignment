@@ -1,6 +1,5 @@
 // Object Varibles //
 Player player; // initalizes the player
-ArrayList<Bullet> playerBullet = new ArrayList<Bullet>();
 
 void setup(){
   size(1600,1000); // sets the screen size
@@ -10,6 +9,23 @@ void setup(){
 void draw(){
   background(255);
   playerFunctionCall();
+  bulletFuncitonCall();
+}
+// calls all the bullet funcitons for every bullet
+void bulletFuncitonCall(){
+  // loops over every player bullet and runs the bullet functions
+  for(Bullet bullet : player.bullets){
+    bullet.displayBullet(); // displays the bullets on the screen
+    bullet.bulletMovement(); // preforms the movement for the bullet
+  }
+  // checks every bullet to see if it is still active
+  for(int i = player.bullets.size() - 1; i > 0; i--){
+    // condition checks the bullets position on screen and removes the bullet if its off screen or checks if the bullet is dead
+   if(player.bullets.get(i).position.x > 1600 || player.bullets.get(i).bulletDead == true ){
+     println(player.bullets.size()); 
+     player.bullets.remove(i); // removes the bullet from the array
+   }
+  }
 }
 
 // calls all the player related functions //
@@ -17,6 +33,7 @@ void playerFunctionCall()
 {
  player.playerDisplay(); // displays the player on the screen
  player.playerMovement(); // preforms the movement for the player
+ 
 }
 
 // calls input when pressed or over time when held down //
@@ -48,6 +65,7 @@ void keyPressed(){
     if(key == 'z')
     {
        player.inputs[4] = true; // Sets z to true
+       
     }
 }
 

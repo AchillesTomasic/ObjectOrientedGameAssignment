@@ -7,7 +7,8 @@ class Player{
     PVector velocity = new PVector(); // initalizes the velocity vectors for the player
     PVector acceleration = new PVector(); // initalizes the accleration vectors for the player
     float moveSpeed = 7;// initalizes speed of the player
-   // //
+   // attack variables //
+   ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
   /// player constructor
   Player(float posX,float posY){
@@ -42,7 +43,7 @@ class Player{
      }
      // input when z is pressed //
      if(inputs[4] == true) {
-       
+       bullets.add(new Bullet(position.x, position.y));
      }
   }
   
