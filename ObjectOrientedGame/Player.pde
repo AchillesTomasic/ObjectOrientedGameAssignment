@@ -21,11 +21,16 @@ class Player{
    int dashAcc = 20; // acceleration for the dash
    int dashTimer; // timer counts for dash
    int dashCooldown = 30; // max times value for the dash
+   // Start position of player //
+   PVector initalPos = new PVector(); // sets inital position of the player
+   
 
   /// player constructor
   Player(float posX,float posY){
     position.x = posX; // sets the x pos for the player 
     position.y = posY; // sets the y pos for the player
+    initalPos.x = position.x; // sets the inital position of the player x
+    initalPos.y = position.y; // sets the inital position of the player y
   }
   // displays the player visuals
   void playerDisplay()
@@ -33,6 +38,14 @@ class Player{
     stroke(0,255,0); // debug colour
     rect(position.x,position.y,playerWidth,playerHeight);
     
+  }
+  // repositions the player if they die
+  void playerDead(){
+    // checks if the player dies
+    if(health <= 0){
+      position.x = initalPos.x; // resets player pos x
+      position.y = initalPos.y; // resets player pos y
+    }
   }
   // creates the collision detection for the player
   void playerCollision(Enemy enemy)

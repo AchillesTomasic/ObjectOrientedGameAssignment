@@ -20,9 +20,18 @@ void draw(){
   gameMenuCall(); // calls the game menu functions
   // checks if the menu is on
   if(!menuOn){
+    //checks players health
+    if(player.health >= 0){
   playerFunctionCall(); // calls the player functions
   bulletFuncitonCall(); // calls the bullet functions
   enemyFunctionCall(); // calls the enemy fucntions
+  gameOverState = false; //sets gameover state to active
+    }
+    // sets game over screen active if the player is dead
+    else{
+      gameOverState = true; //sets gameover state to deactive
+      player.playerDead(); // sets player to inital position when they die
+    }
   }
   else{
     menu.menuDisplay(); // displays the main menu
@@ -48,17 +57,13 @@ void bulletFuncitonCall(){
 void playerFunctionCall()
 {
   //checks if the players health is above 0
-  if(player.health >= 0){
+  
  player.playerDisplay(); // displays the player on the screen
  player.playerMovement(); // preforms the movement for the player
  player.playerCollision(enemy); // preforms the collision detection for the player
  player.playerPhysics();// preforms the physics for the player
  player.timers();// preforms calculatios for every timer in player
- gameOverState = false; //sets game state to active
-  }
-  else{
-    gameOverState = true; // activates game over state
-  }
+ 
 }
 // calls all the functions for the games menus
 void gameMenuCall(){
