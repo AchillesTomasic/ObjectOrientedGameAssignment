@@ -11,8 +11,12 @@ class Player{
     float moveSpeed = 7;// initalizes speed of the player
    // attack variables //
    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
-   int bulletTimer; // timer for bullet
+   int bulletTimer; // timer counts for bullet
    int bulletCooldown = 10; // max timer value for bullet
+   // Dash Variables //
+   int dashAcc = 20; // acceleration for the dash
+   int dashTimer; // timer counts for dash
+   int dashCooldown = 30; // max times value for the dash
 
   /// player constructor
   Player(float posX,float posY){
@@ -41,23 +45,33 @@ class Player{
   // timer for shooting bullets out of the player
   void shootTimer()
   {
+    //checks if the timer is complete
     if(bulletTimer < 0){
-      bullets.add(new Bullet(position.x, position.y));
-      bulletTimer =  bulletCooldown;
+      bullets.add(new Bullet(position.x + playerWidth, position.y + (playerHeight/2))); // spawns a bullet object
+      bulletTimer = bulletCooldown;
     }
+  }
+  // timer counts for all timers in project
+  void timers(){
+    player.bulletTimer -= 1; // ensures the timer is consistantly active for the player bullets
+    player.dashTimer -= 1; // ensures the timer is consistantly active for the player dash
   }
   // player dash ability function
   void playerDash(){
+    if(dashTimer < 0){
     //player is holding back button
     if(acceleration.x == 0 && inputs[1] == true){
-      acceleration.x = -10;
+      acceleration.x = -dashAcc; // pushes the player backwards by setting acceleration
     }
     //when player is standing idle or moving forward
     else if(acceleration.x == 0){
-      acceleration.x = 10;
+      acceleration.x = dashAcc;// pushes the player forwards by setting acceleration
+    }
+    dashTimer = dashCooldown; // resets timer to max time
     }
     
   }
+  // functions calcualte the physics for the player
   void playerPhysics(){
          // player physics calculations x //
      position.x += velocity.x; // changes possiton based on velocity
@@ -65,19 +79,19 @@ class Player{
     // player physics calculations y //
      position.y += velocity.y; // changes possiton based on velocity
      velocity.y += acceleration.y; // changes velocity based on acceleration
-     // shifts acceleration back to when it changes
+     // shifts acceleration back to when it changes //
      if(acceleration.x > 0){
-      acceleration.x -= 5;
+      acceleration.x -= 10; // reduces acceleration if pushed left
     }
     if(acceleration.x < 0){
-      acceleration.x += 5;
+      acceleration.x += 10; // reduces acceleration if pushed right
     }
-     // shifts velocity back to when it changes
+     // shifts velocity back to when it changes //
      if(velocity.x > 0){
-      velocity.x -= 2.5;
+      velocity.x -= 5; // reduces velocity if pushed left
     }
     if(velocity.x < 0){
-      velocity.x += 2.5;
+      velocity.x += 5; // reduces velocity if pushed right
     }
     
   }
