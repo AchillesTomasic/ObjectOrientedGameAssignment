@@ -4,6 +4,10 @@ class Player{
   // player collision //
   int playerWidth = 130; // width for the player collider
   int playerHeight = 130; // height for the player collider
+  // player health variables //
+  int health = 3; // player health 
+  int healthTimer; // timer for hit timer
+  int healthCooldown = 30; // cooldown timer between hits
   // player movement variables //
     PVector position = new PVector(); // initalizes the position vectors for the player
     PVector velocity = new PVector(); // initalizes the velocity vectors for the player
@@ -31,8 +35,24 @@ class Player{
     
   }
   // creates the collision detection for the player
-  void collision()
+  void playerCollision(Enemy enemy)
   {
+    // collision detection for enemies //
+    // checks health timer value
+    if(healthTimer < 0 ){
+    // detects if the player is in the enemy hitbox
+    if(enemy.position.x >= position.x &&
+    enemy.position.x <= position.x + playerWidth &&
+    enemy.position.y >= position.y && 
+    enemy.position.y <= position.y + playerHeight){
+      health -= 1; // reduces the player health
+    }
+    healthTimer = healthCooldown; // resets health timer
+    }
+    
+    
+      // collision detection for the boundaries of the screen //
+      
     // detects colision along the x on the left
     if(position.x <= 0){ position.x = 0;}
     // detects colision along the x on the right
@@ -53,8 +73,20 @@ class Player{
   }
   // timer counts for all timers in project
   void timers(){
-    player.bulletTimer -= 1; // ensures the timer is consistantly active for the player bullets
-    player.dashTimer -= 1; // ensures the timer is consistantly active for the player dash
+    bulletTimer -= 1; // ensures the timer is consistantly active for the player bullets
+    dashTimer -= 1; // ensures the timer is consistantly active for the player dash
+    healthTimer -= 1; // ensures the timer is consistantly active for the player health
+    
+    // resets timers if they get too high that they exceed the int limit //
+    if(bulletTimer < -10000){
+      bulletTimer = -1; //resets timer below input time
+    }
+    if(dashTimer < -10000){
+      dashTimer = -1;//resets timer below input time
+    }
+    if(healthTimer < -10000){
+      bulletTimer = -1;//resets timer below input time
+    }
   }
   // player dash ability function
   void playerDash(){

@@ -1,15 +1,21 @@
 // Object Varibles //
 Player player; // initalizes the player
-
+GameOverMenu gameOver; // initalizes the game over menu
+Enemy enemy; //test
+boolean gameOverState = false; // current state of the game
 void setup(){
   size(1500,750); // sets the screen size
  player = new Player(width/10, height /2.5);
+ enemy = new Enemy(1000,300);
+ gameOver = new GameOverMenu();
 }
 
 void draw(){
   background(255);
   playerFunctionCall();
   bulletFuncitonCall();
+  enemyFunctionCall();
+  gameMenuCall();
 }
 // calls all the bullet funcitons for every bullet
 void bulletFuncitonCall(){
@@ -30,12 +36,37 @@ void bulletFuncitonCall(){
 // calls all the player related functions //
 void playerFunctionCall()
 {
+  //checks if the players health is above 0
+  if(player.health >= 0){
  player.playerDisplay(); // displays the player on the screen
  player.playerMovement(); // preforms the movement for the player
- player.collision(); // preforms the collision detection for the player
+ player.playerCollision(enemy); // preforms the collision detection for the player
  player.playerPhysics();// preforms the physics for the player
  player.timers();// preforms calculatios for every timer in player
- 
+ gameOverState = false;
+  }
+  else{
+    gameOverState = true; // activates game over state
+  }
+}
+// calls all the functions for the games menus
+void gameMenuCall(){
+  if(gameOverState == true){
+    gameOver.gameOverDisplay();
+  }
+}
+
+// calls all the enemy related functions
+void enemyFunctionCall(){
+  enemy.enemyDisplay(); // calls the enemy display function
+  enemy.enemyMovement(); // calls the eneny movement function
+}
+// detects if the player clicks the mouse
+void mousePressed(){
+  // checks if the game is over
+  if(gameOverState == true){
+    gameOver.menuCollision(player);// allows the player to click to restart
+  }
 }
 
 // calls input when pressed or over time when held down //
