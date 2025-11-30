@@ -2,7 +2,7 @@
 Player player; // initalizes the player
 
 void setup(){
-  size(1600,1000); // sets the screen size
+  size(1500,750); // sets the screen size
  player = new Player(width/10, height /2.5);
 }
 
@@ -18,6 +18,7 @@ void bulletFuncitonCall(){
     bullet.displayBullet(); // displays the bullets on the screen
     bullet.bulletMovement(); // preforms the movement for the bullet
   }
+  player.bulletTimer -= 1; // ensures the timer is consistantly active for the player bullets
   // checks every bullet to see if it is still active
   for(int i = player.bullets.size() - 1; i > 0; i--){
     // condition checks the bullets position on screen and removes the bullet if its off screen or checks if the bullet is dead

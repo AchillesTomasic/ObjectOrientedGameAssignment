@@ -9,6 +9,9 @@ class Player{
     float moveSpeed = 7;// initalizes speed of the player
    // attack variables //
    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
+   int bulletTimer; // timer for bullet
+   int bulletCooldown = 10; // max timer value for bullet
+   boolean canShoot = true;
 
   /// player constructor
   Player(float posX,float posY){
@@ -19,8 +22,16 @@ class Player{
   void playerDisplay()
   {
     stroke(0,255,0); // debug colour
-    rect(position.x,position.y,180,180);
+    rect(position.x,position.y,130,130);
     
+  }
+  
+  // timer for shooting bullets out of the player
+  void shootTimer(){
+    if(bulletTimer < 0){
+      bullets.add(new Bullet(position.x, position.y));
+      bulletTimer =  bulletCooldown;
+    }
   }
   // moves the player across the screen
   void playerMovement()
@@ -42,8 +53,8 @@ class Player{
        position.y += moveSpeed; // moves player down
      }
      // input when z is pressed //
-     if(inputs[4] == true) {
-       bullets.add(new Bullet(position.x, position.y));
+     if(inputs[4] == true && canShoot == true) {
+       shootTimer();
      }
   }
   
