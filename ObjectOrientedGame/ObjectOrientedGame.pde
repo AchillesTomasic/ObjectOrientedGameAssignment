@@ -1,22 +1,32 @@
 // Object Varibles //
 Player player; // initalizes the player
 GameOverMenu gameOver; // initalizes the game over menu
+MainMenu menu; // initalize the game menu
 Enemy enemy; //test
 boolean gameOverState = false; // current state of the game
+boolean menuOn = true; // state for the menu screen
 void setup(){
   size(1500,750); // sets the screen size
   // initalizes objects created within scene //
  player = new Player(width/10, height /2.5); 
  enemy = new Enemy(1000,300,5);
  gameOver = new GameOverMenu();
+ menu = new MainMenu();
 }
 
 void draw(){
+  
   background(255);
+  gameMenuCall(); // calls the game menu functions
+  // checks if the menu is on
+  if(!menuOn){
   playerFunctionCall(); // calls the player functions
   bulletFuncitonCall(); // calls the bullet functions
   enemyFunctionCall(); // calls the enemy fucntions
-  gameMenuCall(); // calls the game menu functions
+  }
+  else{
+    menu.menuDisplay(); // displays the main menu
+  }
 }
 // calls all the bullet funcitons for every bullet
 void bulletFuncitonCall(){
@@ -52,6 +62,7 @@ void playerFunctionCall()
 }
 // calls all the functions for the games menus
 void gameMenuCall(){
+  menuOn = menu.menuActive;
   if(gameOverState == true){
     gameOver.gameOverDisplay();
   }
@@ -77,6 +88,10 @@ void mousePressed(){
   // checks if the game is over
   if(gameOverState == true){
     gameOver.menuCollision(player);// allows the player to click to restart
+  }
+  //checks if start menu is on
+  if(menuOn == true){
+    menu.menuCollision(player); // collision for the player menu button
   }
 }
 

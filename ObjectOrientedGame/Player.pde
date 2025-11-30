@@ -5,12 +5,12 @@ class Player{
   int playerWidth = 130; // width for the player collider
   int playerHeight = 130; // height for the player collider
   // player health variables //
-  int health = 3; // player health 
+  int health = 0; // player health 
   int healthTimer; // timer for hit timer
   int healthCooldown = 30; // cooldown timer between hits
   // player movement variables //
     PVector position = new PVector(); // initalizes the position vectors for the player
-    PVector velocity = new PVector(); // initalizes the velocity vectors for the player
+    PVector velocity = new PVector(); // initalizes the velocity vectors for the playerz
     PVector acceleration = new PVector(); // initalizes the accleration vectors for the player
     float moveSpeed = 7;// initalizes speed of the player
    // attack variables //
