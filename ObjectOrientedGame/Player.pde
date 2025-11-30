@@ -1,7 +1,9 @@
 class Player{
   // input vairble //
   boolean[] inputs = new boolean[5];// array for different variables | 0 = Right, 1 = Left, 2 = Up, 3 = Down, 4 = Z/"Shoot key",  |
-  
+  // player collision //
+  int playerWidth = 130; // width for the player collider
+  int playerHeight = 130; // height for the player collider
   // player movement variables //
     PVector position = new PVector(); // initalizes the position vectors for the player
     PVector velocity = new PVector(); // initalizes the velocity vectors for the player
@@ -22,12 +24,24 @@ class Player{
   void playerDisplay()
   {
     stroke(0,255,0); // debug colour
-    rect(position.x,position.y,130,130);
+    rect(position.x,position.y,playerWidth,playerHeight);
     
   }
-  
+  // creates the collision detection for the player
+  void collision()
+  {
+    // detects colision along the x on the left
+    if(position.x <= 0){ position.x = 0;}
+    // detects colision along the x on the right
+    if(position.x + playerWidth >= width){ position.x = width - playerWidth;}
+    // detects colision along the y for the top
+    if(position.y <= 0){ position.y = 0;}
+    // detects colision along the y for the bottom
+    if(position.y + playerHeight >= height){ position.y = height - playerHeight;}
+  }
   // timer for shooting bullets out of the player
-  void shootTimer(){
+  void shootTimer()
+  {
     if(bulletTimer < 0){
       bullets.add(new Bullet(position.x, position.y));
       bulletTimer =  bulletCooldown;

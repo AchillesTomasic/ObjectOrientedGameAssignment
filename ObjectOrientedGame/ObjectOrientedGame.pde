@@ -23,7 +23,6 @@ void bulletFuncitonCall(){
   for(int i = player.bullets.size() - 1; i > 0; i--){
     // condition checks the bullets position on screen and removes the bullet if its off screen or checks if the bullet is dead
    if(player.bullets.get(i).position.x > 1600 || player.bullets.get(i).bulletDead == true ){
-     println(player.bullets.size()); 
      player.bullets.remove(i); // removes the bullet from the array
    }
   }
@@ -34,6 +33,7 @@ void playerFunctionCall()
 {
  player.playerDisplay(); // displays the player on the screen
  player.playerMovement(); // preforms the movement for the player
+ player.collision(); // preforms the collision detection for the player
  
 }
 
