@@ -13,7 +13,28 @@ class GameUI{
   }
   // displays all of the UI elements on screen
   void display(){
-    highscoreLoop();
+    highscoreLoop(); //creates the visuals for the highscore
+    livesImage(50,50); // changes the image on the lives counter
+  }
+  // chooses which lives image to add
+  void livesImage(int posX, int posY){
+    // checks the health value and chooses image based on value //
+    // if health is 3
+    if(health == 3){
+      rect(posX,posY,50,50);
+    }
+    // if health is 2
+    else if(health == 2){
+      rect(posX,posY,50,50);
+    }
+    // if health is 1
+    else if(health == 1){
+      rect(posX,posY,50,50);
+    }
+    // if health is 0 or any other value
+    else{
+      rect(posX,posY,50,50);
+    }
   }
   // loops each number instance and draws that number
   void highscoreLoop(){

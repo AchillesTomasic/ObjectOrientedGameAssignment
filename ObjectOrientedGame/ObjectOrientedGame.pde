@@ -6,6 +6,7 @@ GameUI gameUI; // initalizes the game UI
 Enemy enemy; //test
 boolean gameOverState = false; // current state of the game
 boolean menuOn = true; // state for the menu screen
+int highscore; // highscore value in the game
 void setup(){
   size(1500,750); // sets the screen size
   // initalizes objects created within scene //
@@ -13,7 +14,7 @@ void setup(){
  enemy = new Enemy(1000,300,5);
  gameOver = new GameOverMenu();
  menu = new MainMenu();
- gameUI = new GameUI(93025,3);
+ gameUI = new GameUI(highscore,player.health);
 }
 
 void draw(){
