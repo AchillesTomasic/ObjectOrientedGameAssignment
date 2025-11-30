@@ -16,7 +16,7 @@ class Player{
    // attack variables //
    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
    int bulletTimer; // timer counts for bullet
-   int bulletCooldown = 10; // max timer value for bullet
+   int bulletCooldown = 20; // max timer value for bullet
    // Dash Variables //
    int dashAcc = 20; // acceleration for the dash
    int dashTimer; // timer counts for dash
