@@ -18,9 +18,9 @@ class Player{
    int bulletTimer; // timer counts for bullet
    int bulletCooldown = 20; // max timer value for bullet
    // Dash Variables //
-   int dashAcc = 20; // acceleration for the dash
+   int dashAcc = 40; // acceleration for the dash
    int dashTimer; // timer counts for dash
-   int dashCooldown = 30; // max times value for the dash
+   int dashCooldown = 40; // max times value for the dash
    // Start position of player //
    PVector initalPos = new PVector(); // sets inital position of the player
    
@@ -126,10 +126,10 @@ class Player{
      velocity.y += acceleration.y; // changes velocity based on acceleration
      // shifts acceleration back to when it changes //
      if(acceleration.x > 0){
-      acceleration.x -= 10; // reduces acceleration if pushed left
+      acceleration.x -= 20; // reduces acceleration if pushed left
     }
     if(acceleration.x < 0){
-      acceleration.x += 10; // reduces acceleration if pushed right
+      acceleration.x += 20; // reduces acceleration if pushed right
     }
      // shifts velocity back to when it changes //
      if(velocity.x > 0){

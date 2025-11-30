@@ -24,11 +24,12 @@ void draw(){
   if(!menuOn){
     //checks players health
     if(player.health >= 0){
-  playerFunctionCall(); // calls the player functions
-  bulletFuncitonCall(); // calls the bullet functions
-  enemyFunctionCall(); // calls the enemy fucntions
-  gameUICall(); // calls the gameUI functions
-  gameOverState = false; //sets gameover state to active
+      
+      playerFunctionCall(); // calls the player functions
+      bulletFuncitonCall(); // calls the bullet functions
+      enemyFunctionCall(); // calls the enemy fucntions
+      gameOverState = false; //sets gameover state to active
+      gameUICall(); // calls the gameUI functions
     }
     // sets game over screen active if the player is dead
     else{
@@ -94,6 +95,7 @@ void enemyFunctionCall(){
 // calls all the game ui elements
 void gameUICall(){
   gameUI.highscoreUIcalculator(); // calculator for the players score
+  gameUI.display(); // displays all the game UI information
 }
 // detects if the player clicks the mouse
 void mousePressed(){
