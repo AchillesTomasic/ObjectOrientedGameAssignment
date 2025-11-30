@@ -1,6 +1,6 @@
 class Player{
   // input vairble //
-  boolean[] inputs = new boolean[5];// array for different variables | 0 = Right, 1 = Left, 2 = Up, 3 = Down, 4 = Z/"Shoot key",  |
+  boolean[] inputs = new boolean[6];// array for different variables | 0 = Right, 1 = Left, 2 = Up, 3 = Down, 4 = Z/"Shoot key",  |
   // player collision //
   int playerWidth = 130; // width for the player collider
   int playerHeight = 130; // height for the player collider
@@ -13,7 +13,6 @@ class Player{
    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
    int bulletTimer; // timer for bullet
    int bulletCooldown = 10; // max timer value for bullet
-   boolean canShoot = true;
 
   /// player constructor
   Player(float posX,float posY){
@@ -47,6 +46,42 @@ class Player{
       bulletTimer =  bulletCooldown;
     }
   }
+  // player dash ability function
+  void playerDash(){
+    //player is holding back button
+    if(acceleration.x == 0 && inputs[1] == true){
+      acceleration.x = -10;
+    }
+    //when player is standing idle or moving forward
+    else if(acceleration.x == 0){
+      acceleration.x = 10;
+    }
+    
+  }
+  void playerPhysics(){
+         // player physics calculations x //
+     position.x += velocity.x; // changes possiton based on velocity
+     velocity.x += acceleration.x; // changes velocity based on acceleration
+    // player physics calculations y //
+     position.y += velocity.y; // changes possiton based on velocity
+     velocity.y += acceleration.y; // changes velocity based on acceleration
+     // shifts acceleration back to when it changes
+     if(acceleration.x > 0){
+      acceleration.x -= 5;
+    }
+    if(acceleration.x < 0){
+      acceleration.x += 5;
+    }
+     // shifts velocity back to when it changes
+     if(velocity.x > 0){
+      velocity.x -= 2.5;
+    }
+    if(velocity.x < 0){
+      velocity.x += 2.5;
+    }
+    
+  }
+  
   // moves the player across the screen
   void playerMovement()
   {
@@ -67,8 +102,12 @@ class Player{
        position.y += moveSpeed; // moves player down
      }
      // input when z is pressed //
-     if(inputs[4] == true && canShoot == true) {
+     if(inputs[4] == true) {
        shootTimer();
+     }
+     // input when x is pressed //
+     if(inputs[5] == true) {
+       playerDash();
      }
   }
   

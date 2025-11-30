@@ -34,6 +34,7 @@ void playerFunctionCall()
  player.playerDisplay(); // displays the player on the screen
  player.playerMovement(); // preforms the movement for the player
  player.collision(); // preforms the collision detection for the player
+ player.playerPhysics();// preforms the physics for the player
  
 }
 
@@ -68,6 +69,11 @@ void keyPressed(){
        player.inputs[4] = true; // Sets z to true
        
     }
+    // input when x is pressed //
+    if(key == 'x')
+    {
+       player.inputs[5] = true; // Sets x to true
+    }
 }
 
 // when input is relseaed //
@@ -100,5 +106,10 @@ void keyReleased(){
     if(key == 'z')
     {
        player.inputs[4] = false; // Sets z to false
+    }
+    // input when x is pressed //
+    if(key == 'x')
+    {
+       player.inputs[5] = false; // Sets x to false
     }
 }
