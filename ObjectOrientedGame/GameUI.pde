@@ -2,19 +2,32 @@ class GameUI{
   // variables for the changing UI elements //
   int highscore; // highscore value for the UI element
   int health; // health value for the UI element
+  float dashCooldown; // dashCooldown Value for the game
+  float dashMaxCooldown; // max value for the cooldown dash
   int[] scoreValue = new int[8]; // value for each score space displayed
-  // used for UI image sizes
+  // used for UI image sizes //
   PVector scoreImagePos = new PVector(width - 100,50); // positions for the highscore images
+  float barX; //x value for the recharge bar position
+  PVector dashBarPos = new PVector(400,height - 100); //sets the dash bar position
   
   // constructor for the game UI
-  GameUI(int hs,int hp){
-    highscore = hs; // initalizes the players highscore
-    health = hp; // initalizes the players health
+  GameUI(int hs,int hp,float dashCool,float dashMax){
+    highscore = hs; // initalizes the players highscore UI value
+    health = hp; // initalizes the players health UI value
+    dashCooldown = dashCool; // initalizes the players cooldown UI value
+    dashMaxCooldown = dashMax; // initalizes the players max cooldown time
   }
   // displays all of the UI elements on screen
   void display(){
     highscoreLoop(); //creates the visuals for the highscore
     livesImage(50,50); // changes the image on the lives counter
+    dashbarUI(); // changes the bar value for the dashUI and creates visuals for dashUI
+  }
+  // creates the visuals for the dash UI icon
+  void dashbarUI(){
+    barX = dashCooldown; // sets a temporary value for the dash cooldown
+    float tempX = map(barX,dashMaxCooldown, 0,0,-300); // remaps the bar so that the position continuously moves
+    rect(dashBarPos.x,dashBarPos.y,tempX,40);
   }
   // chooses which lives image to add
   void livesImage(int posX, int posY){

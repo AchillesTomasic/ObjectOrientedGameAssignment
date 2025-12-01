@@ -10,17 +10,17 @@ class Player{
   int healthCooldown = 30; // cooldown timer between hits
   // player movement variables //
     PVector position = new PVector(); // initalizes the position vectors for the player
-    PVector velocity = new PVector(); // initalizes the velocity vectors for the playerz
+    PVector velocity = new PVector(); // initalizes the velocity vectors for the player
     PVector acceleration = new PVector(); // initalizes the accleration vectors for the player
     float moveSpeed = 7;// initalizes speed of the player
    // attack variables //
    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
    int bulletTimer; // timer counts for bullet
-   int bulletCooldown = 20; // max timer value for bullet
+   int bulletCooldown = 10; // max timer value for bullet
    // Dash Variables //
    int dashAcc = 40; // acceleration for the dash
    int dashTimer; // timer counts for dash
-   int dashCooldown = 40; // max times value for the dash
+   int dashCooldown = 200; // max times value for the dash
    // Start position of player //
    PVector initalPos = new PVector(); // sets inital position of the player
    
@@ -84,6 +84,17 @@ class Player{
       bulletTimer = bulletCooldown;
     }
   }
+  // collision for the points
+  void pointCollision(PointPickup points){
+    // checks if a bullet enters the enemys collision box
+    if(points.position.x >= position.x &&
+       points.position.x <= position.x + playerWidth &&
+       points.position.y >= position.y &&
+       points.position.y <= position.y + playerHeight){
+      highscore += points.pointValue; // changes the highscore value
+      points.pointLife = false; // turns points alive to false
+    }
+  }
   // timer counts for all timers in project
   void timers(){
     bulletTimer -= 1; // ensures the timer is consistantly active for the player bullets
@@ -94,7 +105,7 @@ class Player{
     if(bulletTimer < -10000){
       bulletTimer = -1; //resets timer below input time
     }
-    if(dashTimer < -10000){
+    if(dashTimer < -1){
       dashTimer = -1;//resets timer below input time
     }
     if(healthTimer < -10000){

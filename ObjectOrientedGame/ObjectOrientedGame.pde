@@ -3,22 +3,22 @@ Player player; // initalizes the player
 GameOverMenu gameOver; // initalizes the game over menu
 MainMenu menu; // initalize the game menu
 GameUI gameUI; // initalizes the game UI
-Enemy enemy; //test
+ArrayList<Enemy> enemy = new ArrayList<Enemy>();// all enemys instances
 boolean gameOverState = false; // current state of the game
 boolean menuOn = true; // state for the menu screen
 int highscore; // highscore value in the game
+ArrayList<PointPickup> points = new ArrayList<PointPickup>(); // all points in the scene
 void setup(){
   size(1500,750); // sets the screen size
   // initalizes objects created within scene //
  player = new Player(width/10, height /2.5); 
- enemy = new Enemy(1000,300,5);
+ enemy.add(new Enemy(1000,300,5));
  gameOver = new GameOverMenu();
  menu = new MainMenu();
- gameUI = new GameUI(highscore,player.health);
+ gameUI = new GameUI(highscore,player.health,player.dashTimer, player.dashCooldown);
 }
 
 void draw(){
-  
   background(255);
   gameMenuCall(); // calls the game menu functions
   // checks if the menu is on
@@ -31,6 +31,7 @@ void draw(){
       enemyFunctionCall(); // calls the enemy fucntions
       gameOverState = false; //sets gameover state to active
       gameUICall(); // calls the gameUI functions
+      PointsCall(); // calls the points functions
     }
     // sets game over screen active if the player is dead
     else{
@@ -61,11 +62,22 @@ void bulletFuncitonCall(){
 // calls all the player related functions //
 void playerFunctionCall()
 {
-  //checks if the players health is above 0
-  
  player.playerDisplay(); // displays the player on the screen
  player.playerMovement(); // preforms the movement for the player
- player.playerCollision(enemy); // preforms the collision detection for the player
+ // checks over each enemy instance
+ for(int i = enemy.size() - 1;i >= 0; i--){
+ player.playerCollision(enemy.get(i)); // preforms the collision detection for the player
+ }
+ // iterates over each point object
+ for(int i = points.size() - 1;i >= 0; i--){
+   //checks if the point is alive
+   if(points.get(i).pointLife == true){
+ player.pointCollision(points.get(i)); // checks for points collision on each point object
+   }
+   else{
+     points.remove(i); // removes the points object
+   }
+ }
  player.playerPhysics();// preforms the physics for the player
  player.timers();// preforms calculatios for every timer in player
  
@@ -80,21 +92,42 @@ void gameMenuCall(){
 
 // calls all the enemy related functions
 void enemyFunctionCall(){
+  // iterates over every instance of an enemy
+  for(int i = enemy.size() - 1;i >= 0; i--){
+    Enemy e = enemy.get(i); // variable for the current enemy
   //checks if enemy is alive
-  if(enemy.health > 0){
-    enemy.enemyDisplay(); // calls the enemy display function
-    enemy.enemyMovement(); // calls the eneny movement function
+  if(e.health > 0){
+    e.enemyDisplay(); // calls the enemy display function
+    e.enemyMovement(); // calls the eneny movement function
     //checks every bullet on screen
     for(Bullet bullet : player.bullets){
-      enemy.enemyCollision(bullet); //checks each bullet if they hit the enemy
+      e.enemyCollision(bullet); //checks each bullet if they hit the enemy
     }
   }
   else{
-    
+    points.add(new PointPickup(e.position.x,e.position.y,true,100)); // spawns points when enemy dies
+    enemy.remove(i); // removes enemy from scene
+  }
+  }
+}
+// calls all of the point elements
+void PointsCall(){
+  // loops over every player point pickup
+  for(PointPickup point : points){
+    point.display(); // displays the visuals for the points
+    point.physics(); // creates the physics for the points
+  }
+  // checks every bullet to see if it is still active
+  for(int i = points.size() - 1; i > 0; i--){
+    // condition checks the bullets position on screen and removes the bullet if its off screen or checks if the bullet is dead
+   if(points.get(i).position.x < 100 || points.get(i).collected == true ){
+     points.remove(i); // removes the point from the array
+   }
   }
 }
 // calls all the game ui elements
 void gameUICall(){
+  gameUI.dashCooldown = player.dashTimer;
   gameUI.highscoreUIcalculator(); // calculator for the players score
   gameUI.display(); // displays all the game UI information
 }
