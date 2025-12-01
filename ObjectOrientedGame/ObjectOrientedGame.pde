@@ -64,9 +64,10 @@ void playerFunctionCall()
 {
  player.playerDisplay(); // displays the player on the screen
  player.playerMovement(); // preforms the movement for the player
+ player.boundaryCollision(); // prefors the collision detector for the boundary
  // checks over each enemy instance
  for(int i = enemy.size() - 1;i >= 0; i--){
- player.playerCollision(enemy.get(i)); // preforms the collision detection for the player
+ player.playerCollision(enemy.get(i)); // preforms the collision detection for the enemies hitting player
  }
  // iterates over each point object
  for(int i = points.size() - 1;i >= 0; i--){
@@ -74,10 +75,22 @@ void playerFunctionCall()
    if(points.get(i).pointLife == true){
  player.pointCollision(points.get(i)); // checks for points collision on each point object
    }
-   else{
-     points.remove(i); // removes the points object
+   else
+     {
+       // checks if the point popup animation is still playing
+       if(points.get(i).popupLife == false){
+           points.remove(i); // removes the points object
+       }
+       else{
+         // plays the point collected animation
+         if(points.get(i).popupTimer > 0){
+         points.get(i).popupTimer -= 1; // reduces the timer for the popup 
+         } 
+         // destroys the point after the point animation
+         else{ points.get(i).popupLife = false; }
+       }
+     }
    }
- }
  player.playerPhysics();// preforms the physics for the player
  player.timers();// preforms calculatios for every timer in player
  
@@ -105,7 +118,7 @@ void enemyFunctionCall(){
     }
   }
   else{
-    points.add(new PointPickup(e.position.x,e.position.y,true,100)); // spawns points when enemy dies
+    points.add(new PointPickup(e.position.x,e.position.y,100)); // spawns points when enemy dies
     enemy.remove(i); // removes enemy from scene
   }
   }
@@ -122,6 +135,7 @@ void PointsCall(){
     // condition checks the bullets position on screen and removes the bullet if its off screen or checks if the bullet is dead
    if(points.get(i).position.x < 100 || points.get(i).collected == true ){
      points.remove(i); // removes the point from the array
+     
    }
   }
 }

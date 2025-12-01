@@ -62,10 +62,9 @@ class Player{
     }
     healthTimer = healthCooldown; // resets health timer
     }
-    
-    
-      // collision detection for the boundaries of the screen //
-      
+  }
+  // collision detection for the boundaries of the screen //
+  void boundaryCollision(){   
     // detects colision along the x on the left
     if(position.x <= 0){ position.x = 0;}
     // detects colision along the x on the right
