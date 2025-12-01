@@ -59,8 +59,8 @@ class Player{
     enemy.position.y >= position.y && 
     enemy.position.y <= position.y + playerHeight){
       health -= 1; // reduces the player health
+      healthTimer = healthCooldown; // resets health timer
     }
-    healthTimer = healthCooldown; // resets health timer
     }
   }
   // collision detection for the boundaries of the screen //

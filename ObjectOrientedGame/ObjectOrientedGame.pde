@@ -1,4 +1,5 @@
 // Object Varibles //
+Level level; // initalizes the level 
 Player player; // initalizes the player
 GameOverMenu gameOver; // initalizes the game over menu
 MainMenu menu; // initalize the game menu
@@ -6,13 +7,14 @@ GameUI gameUI; // initalizes the game UI
 ArrayList<Enemy> enemy = new ArrayList<Enemy>();// all enemys instances
 boolean gameOverState = false; // current state of the game
 boolean menuOn = true; // state for the menu screen
+boolean reset = true; // resets enemy positions
 int highscore; // highscore value in the game
 ArrayList<PointPickup> points = new ArrayList<PointPickup>(); // all points in the scene
 void setup(){
   size(1500,750); // sets the screen size
   // initalizes objects created within scene //
  player = new Player(width/10, height /2.5); 
- enemy.add(new Enemy(1000,300,5));
+ level = new Level();
  gameOver = new GameOverMenu();
  menu = new MainMenu();
  gameUI = new GameUI(highscore,player.health,player.dashTimer, player.dashCooldown);
@@ -24,8 +26,9 @@ void draw(){
   // checks if the menu is on
   if(!menuOn){
     //checks players health
-    if(player.health >= 0){
-      
+    if(player.health >= 0){  
+      startLevel(); // spawns all enemies into the scene
+      level.timer += 1; // counts the level timer each frame
       playerFunctionCall(); // calls the player functions
       bulletFuncitonCall(); // calls the bullet functions
       enemyFunctionCall(); // calls the enemy fucntions
@@ -37,10 +40,27 @@ void draw(){
     else{
       gameOverState = true; //sets gameover state to deactive
       player.playerDead(); // sets player to inital position when they die
+      levelReset(); // resets the enemy spawns
+      reset = true;
     }
   }
   else{
     menu.menuDisplay(); // displays the main menu
+  }
+}
+// when the player dies, removes all entities
+void levelReset(){
+  // checks every instance of enemy
+  for(int i = enemy.size() - 1;i >= 0; i--){
+    enemy.remove(i); // removes enemy from scene
+  }
+}
+// resets the enemy inital spawn
+void startLevel(){
+  //checks if enemies need to spawn
+  if(reset == true){
+  level1(); // spawns all entities
+  reset = false; // stops from respawning entities
   }
 }
 // calls all the bullet funcitons for every bullet
@@ -53,7 +73,7 @@ void bulletFuncitonCall(){
   // checks every bullet to see if it is still active
   for(int i = player.bullets.size() - 1; i > 0; i--){
     // condition checks the bullets position on screen and removes the bullet if its off screen or checks if the bullet is dead
-   if(player.bullets.get(i).position.x > 1600 || player.bullets.get(i).bulletDead == true ){
+   if(player.bullets.get(i).position.x > 1500 || player.bullets.get(i).bulletDead == true ){
      player.bullets.remove(i); // removes the bullet from the array
    }
   }
@@ -108,26 +128,32 @@ void enemyFunctionCall(){
   // iterates over every instance of an enemy
   for(int i = enemy.size() - 1;i >= 0; i--){
     Enemy e = enemy.get(i); // variable for the current enemy
-  //checks if enemy is alive
-  e.enemyDisplay();
-  if(e.health > 0){
-     // calls the enemy display function
-    e.enemyMovement(); // calls the eneny movement function
-    //checks every bullet on screen
-    for(Bullet bullet : player.bullets){
-      e.enemyCollision(bullet); //checks each bullet if they hit the enemy
+    e.active = level.spawner(e);
+    if(e.active == true)
+    {
+      e.enemyDisplay(); // makes enemy visable
+      //checks if enemy is alive
+      if(e.health > 0){
+         // calls the enemy display function
+         e.enemyMovement(); // calls the eneny movement function
+         //checks every bullet on screen
+      for(Bullet bullet : player.bullets){
+         e.enemyCollision(bullet); //checks each bullet if they hit the enemy
+        }
     }
-  }
-  else{
+     else{
     // explosion timer for the animation
-    if(enemy.get(i).explodeTimer > 0){
+    if(enemy.get(i).explodeTimer > 0)
+    {
       enemy.get(i).explodeTimer -= 1; //reduces animation timer 
     }
-    else{
-    points.add(new PointPickup(e.position.x,e.position.y,100)); // spawns points when enemy dies
-    enemy.remove(i); // removes enemy from scene
+        else
+        {
+          points.add(new PointPickup(e.position.x,e.position.y,100)); // spawns points when enemy dies
+          enemy.remove(i); // removes enemy from scene
+        }
+      }
     }
-  }
   }
 }
 // calls all of the point elements
