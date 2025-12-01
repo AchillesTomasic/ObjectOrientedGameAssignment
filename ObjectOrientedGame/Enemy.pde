@@ -8,6 +8,9 @@ class Enemy{
   int enemyHeight = 80; // height for the enemy collider
   // enemy health variables //
   int health; // enemy health value
+  // enemy explosion 
+  boolean explodeFin = false; // boolean to checks if the animation finished
+  int explodeTimer = 30; // timer for explosion
   //enemy constructor
   Enemy(float posX,float posY, int hp){
     position.x = posX; // sets the x pos for the enemy
@@ -17,7 +20,13 @@ class Enemy{
   
   // display for the enemy character
   void enemyDisplay(){
+    // checks if the enemy is alive
+    if(health > 1){
     rect(position.x,position.y,50,50);
+    }
+    else{
+      rect(position.x - 20,position.y - 20,70,70);
+    }
   }
   // detects enemy collision
   void enemyCollision(Bullet bullet){
@@ -27,12 +36,15 @@ class Enemy{
        bullet.position.y >= position.y &&
        bullet.position.y <= position.y + enemyHeight){
       health -= 1; // reduces the enemy health
-      bullet.bulletDead = true;
+      bullet.bulletDead = true; // turns bullet off
     }
   }
   
   // movement code for the enemy 
   void enemyMovement(){
-    position.x -= 1;
+    // checks if the player is alive
+    if(health > 0){
+    position.x -= 1; // moves the player
+    }
   }
 }

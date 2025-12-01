@@ -109,8 +109,9 @@ void enemyFunctionCall(){
   for(int i = enemy.size() - 1;i >= 0; i--){
     Enemy e = enemy.get(i); // variable for the current enemy
   //checks if enemy is alive
+  e.enemyDisplay();
   if(e.health > 0){
-    e.enemyDisplay(); // calls the enemy display function
+     // calls the enemy display function
     e.enemyMovement(); // calls the eneny movement function
     //checks every bullet on screen
     for(Bullet bullet : player.bullets){
@@ -118,8 +119,14 @@ void enemyFunctionCall(){
     }
   }
   else{
+    // explosion timer for the animation
+    if(enemy.get(i).explodeTimer > 0){
+      enemy.get(i).explodeTimer -= 1; //reduces animation timer 
+    }
+    else{
     points.add(new PointPickup(e.position.x,e.position.y,100)); // spawns points when enemy dies
     enemy.remove(i); // removes enemy from scene
+    }
   }
   }
 }
