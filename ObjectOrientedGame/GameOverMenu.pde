@@ -15,6 +15,7 @@ class GameOverMenu{
     mouseY <= (height/2) + 100){
       
       player.health = 3;// resets the players health
+      level.timer = 0; // resets level timer
     }
   }
 }

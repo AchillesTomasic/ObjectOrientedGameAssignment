@@ -1,4 +1,5 @@
 class Enemy{
+  int spawnTime;// determines when the enemy becomes active
   // movement vairables for the enemy //
   PVector position = new PVector(); //initalizes the enemy position
   PVector velocity = new PVector(); //initalizes the enemy velocity
@@ -8,16 +9,17 @@ class Enemy{
   int enemyHeight = 80; // height for the enemy collider
   // enemy health variables //
   int health; // enemy health value
+  boolean active = false; // checks if the enemy is on screen
   // enemy explosion 
   boolean explodeFin = false; // boolean to checks if the animation finished
   int explodeTimer = 30; // timer for explosion
   //enemy constructor
-  Enemy(float posX,float posY, int hp){
+  Enemy(float posX,float posY, int hp, int spawn){
     position.x = posX; // sets the x pos for the enemy
     position.y = posY; // sets the y pos for the enemy
     health = hp; //sets the enemy health
+    spawnTime = spawn; // determines when the enemy spawns
   }
-  
   // display for the enemy character
   void enemyDisplay(){
     // checks if the enemy is alive
