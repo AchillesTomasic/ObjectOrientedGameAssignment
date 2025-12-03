@@ -1,4 +1,6 @@
 class Player{
+  // images for the player //
+  PImage playerIdleImage = loadImage("placeHolder.jpg"); // image for the player
   // input vairble //
   boolean[] inputs = new boolean[6];// array for different variables | 0 = Right, 1 = Left, 2 = Up, 3 = Down, 4 = Z/"Shoot key",  |
   // player collision //
@@ -36,7 +38,7 @@ class Player{
   void playerDisplay()
   {
     stroke(0,255,0); // debug colour
-    rect(position.x,position.y,playerWidth,playerHeight);
+    image(playerIdleImage,position.x,position.y,playerWidth,playerHeight); // image for the player
     
   }
   // repositions the player if they die

@@ -1,4 +1,8 @@
 class GameUI{
+  // images for the ui //
+  PImage dashbarImage = loadImage("placeHolder.jpg"); // image for the dash
+  PImage[] livesImage; // list for the images in lives
+  PImage[] highscoreImage; // list for the images highscore
   // variables for the changing UI elements //
   int highscore; // highscore value for the UI element
   int health; // health value for the UI element
@@ -16,6 +20,17 @@ class GameUI{
     health = hp; // initalizes the players health UI value
     dashCooldown = dashCool; // initalizes the players cooldown UI value
     dashMaxCooldown = dashMax; // initalizes the players max cooldown time
+    // initalizes image array // 
+    livesImage = new PImage[4];// initalizes array
+    // loops through every image for the lives
+    for(int i = 0;i < livesImage.length; i++){
+      livesImage[i] = loadImage("placeHolder.jpg"); // image for the lives
+    }
+    highscoreImage = new PImage[10];// initalizes array
+    // loops through every image for the highscore
+    for(int i = 0;i < highscoreImage.length; i++){
+      highscoreImage[i] = loadImage("placeHolder.jpg"); // image for the highscore
+    }
   }
   // displays all of the UI elements on screen
   void display(){
@@ -27,26 +42,26 @@ class GameUI{
   void dashbarUI(){
     barX = dashCooldown; // sets a temporary value for the dash cooldown
     float tempX = map(barX,dashMaxCooldown, 0,0,-300); // remaps the bar so that the position continuously moves
-    rect(dashBarPos.x,dashBarPos.y,tempX,40);
+    image(dashbarImage,dashBarPos.x,dashBarPos.y,tempX,40);
   }
   // chooses which lives image to add
   void livesImage(int posX, int posY){
     // checks the health value and chooses image based on value //
     // if health is 3
     if(health == 3){
-      rect(posX,posY,50,50);
+      image(livesImage[3],posX,posY,50,50); // health image 3 lives
     }
     // if health is 2
     else if(health == 2){
-      rect(posX,posY,50,50);
+      image(livesImage[2],posX,posY,50,50); // health image 2 lives
     }
     // if health is 1
     else if(health == 1){
-      rect(posX,posY,50,50);
+      image(livesImage[1],posX,posY,50,50); // health image 1 lives
     }
     // if health is 0 or any other value
     else{
-      rect(posX,posY,50,50);
+      image(livesImage[0],posX,posY,50,50); // health image 0 lives
     }
   }
   // loops each number instance and draws that number
@@ -65,43 +80,43 @@ class GameUI{
   void highscoreImageSel(int numbVal, float posX,float posY){
     // image for number 9
     if(numbVal == 9){
-      rect(posX,posY,40,60);
+      image(livesImage[9],posX,posY,40,60); // highscore image 9 
     }
     // image for number 8
     else if(numbVal == 8){
-      rect(posX,posY,40,60);
+      image(livesImage[8],posX,posY,40,60); // highscore image 8
     }
     // image for number 7
     else if(numbVal == 7){
-      rect(posX,posY,40,60);
+      image(livesImage[7],posX,posY,40,60); // highscore image 7
     }
     // image for number 6
     else if(numbVal == 6){
-      rect(posX,posY,40,60);
+      image(livesImage[6],posX,posY,40,60); // highscore image 6
     }
     // image for number 5
     else if(numbVal == 5){
-      rect(posX,posY,40,60);
+      image(livesImage[5],posX,posY,40,60); // highscore image 5
     }
     // image for number 4
     else if(numbVal == 4){
-      rect(posX,posY,40,60);
+      image(livesImage[4],posX,posY,40,60); // highscore image 4
     }
     // image for number 3
     else if(numbVal == 3){
-      rect(posX,posY,40,60);
+      image(livesImage[3],posX,posY,40,60); // highscore image 3
     }
     // image for number 2
     else if(numbVal == 2){
-      rect(posX,posY,40,60);
+      image(livesImage[2],posX,posY,40,60); // highscore image 2
     }
     // image for number 1
     else if(numbVal == 1){
-      rect(posX,posY,40,60);
+      image(livesImage[1],posX,posY,40,60); // highscore image 1
     }
     // image for number 0 or any other number that appears
     else{
-      rect(posX,posY,40,60);
+      image(livesImage[0],posX,posY,40,60); // highscore image 0
     }
   }
   // calculates the highscore value for the UI

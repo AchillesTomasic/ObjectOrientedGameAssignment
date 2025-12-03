@@ -1,5 +1,7 @@
 class Bullet
 {
+  // images for the bullet //
+  PImage bulletImage = loadImage("placeHolder.jpg"); // image for the bullet
   // bullet movement variables //
    PVector position = new PVector(); // initalizes the position vectors for the bullet
     PVector velocity = new PVector(); // initalizes the velocity vectors for the bullet
@@ -17,8 +19,7 @@ class Bullet
   // displays the bullet visuals
   void displayBullet()
   {
-    fill(0);
-    rect(position.x,position.y,10,10);
+    image(bulletImage,position.x,position.y,20,20); // bullet image for the screen
   }
   // alters the movement of the bullet
   void bulletMovement(){

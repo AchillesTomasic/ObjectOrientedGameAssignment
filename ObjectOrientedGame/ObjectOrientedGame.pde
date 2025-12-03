@@ -1,4 +1,6 @@
+int timer = 100;// spawns enemies based on time
 // Object Varibles //
+Background background; // initalizes the background
 Level level; // initalizes the level 
 Player player; // initalizes the player
 GameOverMenu gameOver; // initalizes the game over menu
@@ -18,6 +20,7 @@ void setup(){
  gameOver = new GameOverMenu();
  menu = new MainMenu();
  gameUI = new GameUI(highscore,player.health,player.dashTimer, player.dashCooldown);
+ background = new Background();
 }
 
 void draw(){
@@ -29,6 +32,7 @@ void draw(){
     if(player.health >= 0){  
       startLevel(); // spawns all enemies into the scene
       level.timer += 1; // counts the level timer each frame
+      background.scroll(); // calls the scrolling background image
       playerFunctionCall(); // calls the player functions
       bulletFuncitonCall(); // calls the bullet functions
       enemyFunctionCall(); // calls the enemy fucntions
@@ -58,10 +62,12 @@ void levelReset(){
 // resets the enemy inital spawn
 void startLevel(){
   //checks if enemies need to spawn
-  if(reset == true){
-  level1(); // spawns all entities
-  reset = false; // stops from respawning entities
+  if(timer < 0){
+  level1(); // spawns entite
+  timer = 100; //resets timer
   }
+    timer -= 1;// increases timer
+    
 }
 // calls all the bullet funcitons for every bullet
 void bulletFuncitonCall(){

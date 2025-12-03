@@ -16,7 +16,8 @@ class Level{
   }
   
 }
+// sets the enemies along the track for the level
 void level1(){
-   enemy.add(new Enemy(1800,400,5,10));
-   enemy.add(new Enemy(1800,200,5,10));
+  float y = random(100,600);
+   enemy.add(new Enemy(1800,y,3,10));
 }

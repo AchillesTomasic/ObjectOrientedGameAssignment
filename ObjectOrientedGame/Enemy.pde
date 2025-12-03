@@ -1,4 +1,8 @@
 class Enemy{
+  // images for the enemy //
+  PImage enemyImage = loadImage("placeHolder.jpg"); // image for the enemy
+  PImage explosionImage = loadImage("placeHolder.jpg"); // image for the explosion
+  // spawn timers //
   int spawnTime;// determines when the enemy becomes active
   // movement vairables for the enemy //
   PVector position = new PVector(); //initalizes the enemy position
@@ -10,7 +14,7 @@ class Enemy{
   // enemy health variables //
   int health; // enemy health value
   boolean active = false; // checks if the enemy is on screen
-  // enemy explosion 
+  // enemy explosion //
   boolean explodeFin = false; // boolean to checks if the animation finished
   int explodeTimer = 30; // timer for explosion
   //enemy constructor
@@ -23,11 +27,11 @@ class Enemy{
   // display for the enemy character
   void enemyDisplay(){
     // checks if the enemy is alive
-    if(health > 1){
-    rect(position.x,position.y,50,50);
+    if(health > 0){
+      image(enemyImage,position.x,position.y,50,50); // image for the enemy
     }
     else{
-      rect(position.x - 20,position.y - 20,70,70);
+      image(explosionImage,position.x,position.y,70,70); // image for the explosion
     }
   }
   // detects enemy collision
