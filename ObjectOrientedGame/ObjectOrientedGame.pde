@@ -1,3 +1,4 @@
+import processing.sound.*; // imports sound into the game
 int timer = 100;// spawns enemies based on time
 // Object Varibles //
 Background background; // initalizes the background

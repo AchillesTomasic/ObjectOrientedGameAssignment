@@ -1,4 +1,9 @@
+
 class Player{
+  // sounds for the player //
+  SoundFile shootSFX; // shoot sound 
+  SoundFile dashSFX; // dash sound
+  SoundFile collectPointSFX; // sound for enemy being hit
   // images for the player //
   PImage playerIdleImage = loadImage("placeHolder.jpg"); // image for the player
   // input vairble //
@@ -18,7 +23,7 @@ class Player{
    // attack variables //
    ArrayList<Bullet> bullets = new ArrayList<Bullet>();
    int bulletTimer; // timer counts for bullet
-   int bulletCooldown = 10; // max timer value for bullet
+   int bulletCooldown = 7; // max timer value for bullet
    // Dash Variables //
    int dashAcc = 40; // acceleration for the dash
    int dashTimer; // timer counts for dash
@@ -33,6 +38,11 @@ class Player{
     position.y = posY; // sets the y pos for the player
     initalPos.x = position.x; // sets the inital position of the player x
     initalPos.y = position.y; // sets the inital position of the player y
+     // initalizes the sound //
+    shootSFX = new SoundFile(ObjectOrientedGame.this, "shoot.wav");
+    dashSFX = new SoundFile(ObjectOrientedGame.this, "dash.wav");
+    collectPointSFX = new SoundFile(ObjectOrientedGame.this, "collect.wav");
+    
   }
   // displays the player visuals
   void playerDisplay()
@@ -81,8 +91,9 @@ class Player{
   {
     //checks if the timer is complete
     if(bulletTimer < 0){
-      bullets.add(new Bullet(position.x + playerWidth, position.y + (playerHeight/2))); // spawns a bullet object
-      bulletTimer = bulletCooldown;
+      bullets.add(new Bullet(position.x + playerWidth, position.y + (playerHeight/2))); // spawns a bullet object 
+      shootSFX.play(); // plays sound effect
+      bulletTimer = bulletCooldown; // sets the bullet cooldown time
     }
   }
   // collision for the points
@@ -93,6 +104,7 @@ class Player{
        points.position.y >= position.y &&
        points.position.y <= position.y + playerHeight){
       highscore += points.pointValue; // changes the highscore value
+      collectPointSFX.play();
       points.pointLife = false; // turns points alive to false
     }
   }
@@ -123,6 +135,7 @@ class Player{
     //when player is standing idle or moving forward
     else if(acceleration.x == 0){
       acceleration.x = dashAcc;// pushes the player forwards by setting acceleration
+      dashSFX.play(); // plays dash sound
     }
     dashTimer = dashCooldown; // resets timer to max time
     }

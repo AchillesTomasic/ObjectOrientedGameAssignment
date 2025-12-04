@@ -14,6 +14,8 @@ class Bullet
   Bullet(float posX,float posY){
     position.x = posX; // sets the inital x pos for the bullet
     position.y = posY; // sets the inital y pos for the bullet
+    // resize images//
+    bulletImage.resize(20,20);
   }
   
   // displays the bullet visuals

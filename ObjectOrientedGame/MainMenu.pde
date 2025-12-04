@@ -1,9 +1,15 @@
 class MainMenu{
-    // image for the game over screen //
+  // sounds for menu //
+  SoundFile startSFX; // sound for start
+  // image for the game over screen //
   PImage backgroundImage = loadImage("placeHolder.jpg"); // image for the background
   PImage playImage = loadImage("placeHolder.jpg"); // image for the play
   // sets active //
   boolean menuActive = true; // detects if the menu is on
+  // main menu constructor //
+  MainMenu(){
+    startSFX = new SoundFile(ObjectOrientedGame.this, "start.wav"); // initalizes the sound
+  }
   // displays the game over visuals
   void menuDisplay(){
     image(backgroundImage,0,0,width,height); // background image
@@ -17,6 +23,7 @@ class MainMenu{
     mouseY >= (height/2)- 100 && 
     mouseY <= (height/2) + 100 ){
       menuActive = false; // turns off the menu
+      startSFX.play(); // plays start sound
       player.health = 3;// resets the players health
     }
   }

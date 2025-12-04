@@ -1,4 +1,7 @@
 class Enemy{
+  // sounds for enemy // 
+  SoundFile damagedSFX; // sound for enemy being hit
+  SoundFile explodeSFX; // sound for explosion
   // images for the enemy //
   PImage enemyImage = loadImage("placeHolder.jpg"); // image for the enemy
   PImage explosionImage = loadImage("placeHolder.jpg"); // image for the explosion
@@ -23,12 +26,15 @@ class Enemy{
     position.y = posY; // sets the y pos for the enemy
     health = hp; //sets the enemy health
     spawnTime = spawn; // determines when the enemy spawns
+     // initalizes the sound //
+    damagedSFX = new SoundFile(ObjectOrientedGame.this, "damage.wav");
+    explodeSFX = new SoundFile(ObjectOrientedGame.this, "explode.wav");
   }
   // display for the enemy character
   void enemyDisplay(){
     // checks if the enemy is alive
     if(health > 0){
-      image(enemyImage,position.x,position.y,50,50); // image for the enemy
+      image(enemyImage,position.x,position.y,enemyWidth,enemyHeight); // image for the enemy
     }
     else{
       image(explosionImage,position.x,position.y,70,70); // image for the explosion
@@ -40,9 +46,13 @@ class Enemy{
     if(bullet.position.x >= position.x &&
        bullet.position.x <= position.x + enemyWidth &&
        bullet.position.y >= position.y &&
-       bullet.position.y <= position.y + enemyHeight){
+       bullet.position.y <= position.y + enemyHeight ){
+      damagedSFX.play();
       health -= 1; // reduces the enemy health
-      bullet.bulletDead = true; // turns bullet off
+      if(health == 0){
+        explodeSFX.play();
+      }
+      bullet.bulletDead = true; // turns bullet off 
     }
   }
   
@@ -50,7 +60,7 @@ class Enemy{
   void enemyMovement(){
     // checks if the player is alive
     if(health > 0){
-    position.x -= 1; // moves the player
+    position.x -= 3; // moves the player
     }
   }
 }
