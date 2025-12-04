@@ -1,5 +1,6 @@
 import processing.sound.*; // imports sound into the game
-int timer = 100;// spawns enemies based on time
+float timer = 50;// spawns enemies based on time
+float maxTimer = random(30,100); // max time for enemies to spawn
 // Object Varibles //
 Background background; // initalizes the background
 Level level; // initalizes the level 
@@ -65,7 +66,7 @@ void startLevel(){
   //checks if enemies need to spawn
   if(timer < 0){
   level1(); // spawns entite
-  timer = 100; //resets timer
+  timer = maxTimer; //resets timer
   }
     timer -= 1;// increases timer
     

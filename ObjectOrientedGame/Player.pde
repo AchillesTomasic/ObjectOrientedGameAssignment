@@ -3,6 +3,7 @@ class Player{
   // sounds for the player //
   SoundFile shootSFX; // shoot sound 
   SoundFile dashSFX; // dash sound
+  SoundFile hitSFX; // hit sound
   SoundFile collectPointSFX; // sound for enemy being hit
   // images for the player //
   PImage playerIdleImage = loadImage("placeHolder.jpg"); // image for the player
@@ -42,6 +43,7 @@ class Player{
     shootSFX = new SoundFile(ObjectOrientedGame.this, "shoot.wav");
     dashSFX = new SoundFile(ObjectOrientedGame.this, "dash.wav");
     collectPointSFX = new SoundFile(ObjectOrientedGame.this, "collect.wav");
+    hitSFX = new SoundFile(ObjectOrientedGame.this, "Hit.wav");
     
   }
   // displays the player visuals
@@ -59,7 +61,7 @@ class Player{
       position.y = initalPos.y; // resets player pos y
     }
   }
-  // creates the collision detection for the player
+  // creates the collision detection for the player against enemies
   void playerCollision(Enemy enemy)
   {
     // collision detection for enemies //
@@ -71,6 +73,24 @@ class Player{
     enemy.position.y >= position.y && 
     enemy.position.y <= position.y + playerHeight){
       health -= 1; // reduces the player health
+      hitSFX.play(); // plays the hit sound
+      healthTimer = healthCooldown; // resets health timer
+    }
+    }
+  }
+  // creates the collision detection for the player against enemies
+  void enemyBulletCollision(Bullet bullet)
+  {
+    // collision detection for enemie bullets //
+    // checks health timer value
+    if(healthTimer < 0 ){
+    // detects if the player is in the enemy bullet hitbox
+    if(bullet.position.x >= position.x &&
+    bullet.position.x <= position.x + playerWidth &&
+    bullet.position.y >= position.y && 
+    bullet.position.y <= position.y + playerHeight){
+      health -= 1; // reduces the player health
+      hitSFX.play(); // plays the hit sound
       healthTimer = healthCooldown; // resets health timer
     }
     }
