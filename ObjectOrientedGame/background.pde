@@ -8,7 +8,7 @@ class Background{
   Background(){
     // initalizes the different baclground images
     for(int i = 0; i < 2; i++){
-    backgroundImage.add(loadImage("placeHolder.jpg")); // loads an image into the arraylist
+    backgroundImage.add(loadImage("Background.jpg")); // loads an image into the arraylist
     backgroundImage.get(i).resize(width,height); // resizes the image to reduce its ram usage(laggy without)
     position.add(new PVector(sizeAdder,0)); // adds a new PVector to the position arraylist
     sizeAdder += width; // adds to the width size

@@ -4,8 +4,8 @@ class Enemy{
   SoundFile damagedSFX; // sound for enemy being hit
   SoundFile explodeSFX; // sound for explosion
   // images for the enemy //
-  PImage enemyImage = loadImage("placeHolder.jpg"); // image for the enemy
-  PImage explosionImage = loadImage("placeHolder.jpg"); // image for the explosion
+  PImage enemyImage = loadImage("strawBerry.png"); // image for the enemy
+  PImage explosionImage = loadImage("explode.gif"); // image for the explosion
   // spawn timers //
   int spawnTime;// determines when the enemy becomes active
   // movement vairables for the enemy //

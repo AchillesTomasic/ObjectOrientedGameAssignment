@@ -10,7 +10,7 @@ class PointPickup{
   float pointWidth = 30; // width of the points
   float pointHeight = 15; // height of the points
   // variables for the points //
-  int pointValue; // value for the points
+  int pointValue = 100; // value for the points
   boolean pointLife = true; //deactivates point
   boolean popupLife = true; // detects if the popup is alive
   int popupTimer = 120; // timer

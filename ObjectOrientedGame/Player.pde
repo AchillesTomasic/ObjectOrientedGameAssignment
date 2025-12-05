@@ -6,7 +6,7 @@ class Player{
   SoundFile hitSFX; // hit sound
   SoundFile collectPointSFX; // sound for enemy being hit
   // images for the player //
-  PImage playerIdleImage = loadImage("placeHolder.jpg"); // image for the player
+  PImage playerIdleImage = loadImage("PlayerFile.png"); // image for the player
   // input vairble //
   boolean[] inputs = new boolean[6];// array for different variables | 0 = Right, 1 = Left, 2 = Up, 3 = Down, 4 = Z/"Shoot key",  |
   // player collision //
@@ -44,6 +44,7 @@ class Player{
     dashSFX = new SoundFile(ObjectOrientedGame.this, "dash.wav");
     collectPointSFX = new SoundFile(ObjectOrientedGame.this, "collect.wav");
     hitSFX = new SoundFile(ObjectOrientedGame.this, "Hit.wav");
+    playerIdleImage.resize(playerWidth,playerHeight);
     
   }
   // displays the player visuals
@@ -123,7 +124,7 @@ class Player{
        points.position.x <= position.x + playerWidth &&
        points.position.y >= position.y &&
        points.position.y <= position.y + playerHeight){
-      highscore += points.pointValue; // changes the highscore value
+      highscoreMain += points.pointValue; // changes the highscore value
       collectPointSFX.play();
       points.pointLife = false; // turns points alive to false
     }

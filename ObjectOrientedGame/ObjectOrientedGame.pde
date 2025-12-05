@@ -1,6 +1,6 @@
 import processing.sound.*; // imports sound into the game
 float timer = 50;// spawns enemies based on time
-float maxTimer = random(30,100); // max time for enemies to spawn
+float maxTimer = random(20,50); // max time for enemies to spawn
 // Object Varibles //
 Background background; // initalizes the background
 Level level; // initalizes the level 
@@ -12,7 +12,7 @@ ArrayList<Enemy> enemy = new ArrayList<Enemy>();// all enemys instances
 boolean gameOverState = false; // current state of the game
 boolean menuOn = true; // state for the menu screen
 boolean reset = true; // resets enemy positions
-int highscore; // highscore value in the game
+int highscoreMain; // highscore value in the game
 ArrayList<PointPickup> points = new ArrayList<PointPickup>(); // all points in the scene
 void setup(){
   size(1500,750); // sets the screen size
@@ -21,7 +21,7 @@ void setup(){
  level = new Level();
  gameOver = new GameOverMenu();
  menu = new MainMenu();
- gameUI = new GameUI(highscore,player.health,player.dashTimer, player.dashCooldown);
+ gameUI = new GameUI(highscoreMain,player.health,player.dashTimer, player.dashCooldown);
  background = new Background();
 }
 
@@ -108,6 +108,7 @@ void playerFunctionCall()
        // checks if the point popup animation is still playing
        if(points.get(i).popupLife == false){
            points.remove(i); // removes the points object
+          
        }
        else{
          // plays the point collected animation
@@ -182,6 +183,8 @@ void PointsCall(){
 }
 // calls all the game ui elements
 void gameUICall(){
+  gameUI.highscore = highscoreMain;
+  gameUI.health = player.health;
   gameUI.dashCooldown = player.dashTimer;
   gameUI.highscoreUIcalculator(); // calculator for the players score
   gameUI.display(); // displays all the game UI information

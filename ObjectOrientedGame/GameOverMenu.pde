@@ -1,11 +1,13 @@
 class GameOverMenu{
   // image for the game over screen //
-  PImage backgroundImage = loadImage("placeHolder.jpg"); // image for the background
   PImage restartImage = loadImage("placeHolder.jpg"); // image for the restart
+  PImage gameOverImage = loadImage("gameOver.jpg"); // image for the game over
   // displays the game over visuals
   void gameOverDisplay(){
-    image(backgroundImage,0,0,width,height); // background image
-    image(backgroundImage,(width/2 )- 100,(height/2) - 50,200,100); // button image
+    fill(0); // black
+    rect(0,0,width,height); // background image
+    image(restartImage,(width/2 )- 100,(height/2) - 50,200,100); // button image
+    image(gameOverImage,(width/2 )- 100,(height/2) - 250,200,100); // game over image
   }
   //create the menu collision for the buttons
   void menuCollision(Player player){    

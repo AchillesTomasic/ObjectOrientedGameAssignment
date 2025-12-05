@@ -24,12 +24,12 @@ class GameUI{
     livesImage = new PImage[4];// initalizes array
     // loops through every image for the lives
     for(int i = 0;i < livesImage.length; i++){
-      livesImage[i] = loadImage("placeHolder.jpg"); // image for the lives
+      livesImage[i] = loadImage("score" + i +".png"); // image for the lives
     }
     highscoreImage = new PImage[10];// initalizes array
     // loops through every image for the highscore
     for(int i = 0;i < highscoreImage.length; i++){
-      highscoreImage[i] = loadImage("placeHolder.jpg"); // image for the highscore
+      highscoreImage[i] = loadImage("score" + i +".png"); // image for the highscore
     }
   }
   // displays all of the UI elements on screen
@@ -80,43 +80,43 @@ class GameUI{
   void highscoreImageSel(int numbVal, float posX,float posY){
     // image for number 9
     if(numbVal == 9){
-      image(livesImage[9],posX,posY,40,60); // highscore image 9 
+      image(highscoreImage[9],posX,posY,40,60); // highscore image 9 
     }
     // image for number 8
     else if(numbVal == 8){
-      image(livesImage[8],posX,posY,40,60); // highscore image 8
+      image(highscoreImage[8],posX,posY,40,60); // highscore image 8
     }
     // image for number 7
     else if(numbVal == 7){
-      image(livesImage[7],posX,posY,40,60); // highscore image 7
+      image(highscoreImage[7],posX,posY,40,60); // highscore image 7
     }
     // image for number 6
     else if(numbVal == 6){
-      image(livesImage[6],posX,posY,40,60); // highscore image 6
+      image(highscoreImage[6],posX,posY,40,60); // highscore image 6
     }
     // image for number 5
     else if(numbVal == 5){
-      image(livesImage[5],posX,posY,40,60); // highscore image 5
+      image(highscoreImage[5],posX,posY,40,60); // highscore image 5
     }
     // image for number 4
     else if(numbVal == 4){
-      image(livesImage[4],posX,posY,40,60); // highscore image 4
+      image(highscoreImage[4],posX,posY,40,60); // highscore image 4
     }
     // image for number 3
     else if(numbVal == 3){
-      image(livesImage[3],posX,posY,40,60); // highscore image 3
+      image(highscoreImage[3],posX,posY,40,60); // highscore image 3
     }
     // image for number 2
     else if(numbVal == 2){
-      image(livesImage[2],posX,posY,40,60); // highscore image 2
+      image(highscoreImage[2],posX,posY,40,60); // highscore image 2
     }
     // image for number 1
     else if(numbVal == 1){
-      image(livesImage[1],posX,posY,40,60); // highscore image 1
+      image(highscoreImage[1],posX,posY,40,60); // highscore image 1
     }
     // image for number 0 or any other number that appears
     else{
-      image(livesImage[0],posX,posY,40,60); // highscore image 0
+      image(highscoreImage[0],posX,posY,40,60); // highscore image 0
     }
   }
   // calculates the highscore value for the UI
