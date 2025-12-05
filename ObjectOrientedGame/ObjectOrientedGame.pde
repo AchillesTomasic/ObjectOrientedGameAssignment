@@ -59,6 +59,7 @@ void levelReset(){
   // checks every instance of enemy
   for(int i = enemy.size() - 1;i >= 0; i--){
     enemy.remove(i); // removes enemy from scene
+    highscoreMain = 0; // sets highscore to 0
   }
 }
 // resets the enemy inital spawn

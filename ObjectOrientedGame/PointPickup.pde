@@ -1,6 +1,6 @@
 class PointPickup{
   // points images // 
-  PImage pointImage = loadImage("placeHolder.jpg"); // image for the points
+  PImage pointImage = loadImage("point.png"); // image for the points
   // movement variables for the points //
   PVector position = new PVector(); // initalizes the position vectors for point
   // checks if the points are from an enemy //
@@ -8,7 +8,7 @@ class PointPickup{
   int moveSpeed = 1; //movespeed of the points
   // size variables for the points //
   float pointWidth = 30; // width of the points
-  float pointHeight = 15; // height of the points
+  float pointHeight = 30; // height of the points
   // variables for the points //
   int pointValue = 100; // value for the points
   boolean pointLife = true; //deactivates point
@@ -27,7 +27,7 @@ class PointPickup{
     image(pointImage,position.x,position.y,pointWidth,pointHeight); //point visual collectable
     }
     else{
-      image(pointImage,position.x,position.y,30,20); // swaps to point collected
+      image(pointImage,position.x,position.y,pointWidth,pointHeight); // swaps to point collected
     }
   }
   // prefors the physics calculations for the points

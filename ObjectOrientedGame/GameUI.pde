@@ -1,6 +1,5 @@
 class GameUI{
   // images for the ui //
-  PImage dashbarImage = loadImage("placeHolder.jpg"); // image for the dash
   PImage[] livesImage; // list for the images in lives
   PImage[] highscoreImage; // list for the images highscore
   // variables for the changing UI elements //
@@ -42,7 +41,8 @@ class GameUI{
   void dashbarUI(){
     barX = dashCooldown; // sets a temporary value for the dash cooldown
     float tempX = map(barX,dashMaxCooldown, 0,0,-300); // remaps the bar so that the position continuously moves
-    image(dashbarImage,dashBarPos.x,dashBarPos.y,tempX,40);
+    fill(255,165,0); // orange
+    rect(dashBarPos.x,dashBarPos.y,tempX,40); // dash meter visual
   }
   // chooses which lives image to add
   void livesImage(int posX, int posY){

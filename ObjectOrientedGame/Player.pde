@@ -50,7 +50,6 @@ class Player{
   // displays the player visuals
   void playerDisplay()
   {
-    stroke(0,255,0); // debug colour
     image(playerIdleImage,position.x,position.y,playerWidth,playerHeight); // image for the player
     
   }
@@ -112,7 +111,7 @@ class Player{
   {
     //checks if the timer is complete
     if(bulletTimer < 0){
-      bullets.add(new Bullet(position.x + playerWidth, position.y + (playerHeight/2))); // spawns a bullet object 
+      bullets.add(new Bullet(position.x + playerWidth, position.y + (playerHeight/2) - 30)); // spawns a bullet object 
       shootSFX.play(); // plays sound effect
       bulletTimer = bulletCooldown; // sets the bullet cooldown time
     }
